@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Красивая таблица</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Красивая таблица</h1>
+        <table class="fancy-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Имя <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(1)">Возраст <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(2)">Город <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(3)">Статус <i class="fas fa-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Алексей</td>
+                    <td>25</td>
+                    <td>Москва</td>
+                    <td><span class="status active">Активен</span></td>
+                </tr>
+                <tr>
+                    <td>Мария</td>
+                    <td>30</td>
+                    <td>Санкт-Петербург</td>
+                    <td><span class="status inactive">Неактивен</span></td>
+                </tr>
+                <tr>
+                    <td>Иван</td>
+                    <td>22</td>
+                    <td>Казань</td>
+                    <td><span class="status active">Активен</span></td>
+                </tr>
+                <tr>
+                    <td>Ольга</td>
+                    <td>28</td>
+                    <td>Новосибирск</td>
+                    <td><span class="status pending">В ожидании</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
