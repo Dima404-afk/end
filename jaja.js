@@ -1,8 +1,8 @@
 
-let sign = prompt("What's your sign?");
+let sign = prompt("Привет?");
 
-if (sign.toLowerCase() === "scorpio") {
-  alert("Wow! I'm a Scorpio too!");
+if (sign.toLowerCase() === "Привет") {
+  alert("Вау какой ты дружелюбный всё встал и вышел");
 }
 
 // there are many ways to use the prompt feature
