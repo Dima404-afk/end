@@ -13,14 +13,41 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        :root {
+            --bg-primary: #1a2a6c;
+            --bg-secondary: #b21f1f;
+            --bg-tertiary: #fdbb2d;
+            --text-primary: white;
+            --text-secondary: #ffd700;
+            --card-bg: rgba(0, 0, 0, 0.4);
+            --header-bg: rgba(0, 0, 0, 0.3);
+            --link-color: #ffd700;
+            --bubble-opacity: 0.1;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #a8c0ff;
+            --bg-secondary: #3f2b96;
+            --bg-tertiary: #ffd700;
+            --text-primary: #333333;
+            --text-secondary: #3f2b96;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --header-bg: rgba(255, 255, 255, 0.7);
+            --link-color: #3f2b96;
+            --bubble-opacity: 0.05;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
         body {
             min-height: 100vh;
-            background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(-45deg, var(--bg-primary), var(--bg-secondary), var(--bg-tertiary));
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
-            color: white;
+            color: var(--text-primary);
             overflow-x: hidden;
             position: relative;
+            transition: all 0.5s ease;
         }
 
         @keyframes gradientShift {
@@ -29,13 +56,79 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Переключатель темы */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: .4s;
+            border-radius: 34px;
+            backdrop-filter: blur(10px);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: #333;
+        }
+
+        .slider-text {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-primary);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
         /* Анимированные элементы фона */
         .bg-bubble {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, var(--bubble-opacity));
             animation: float 25s infinite linear;
             z-index: -1;
+            transition: background 0.5s ease;
         }
 
         @keyframes float {
@@ -55,11 +148,12 @@
             text-align: center;
             padding: 2rem 0;
             margin-bottom: 2rem;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--header-bg);
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px var(--shadow-color);
             animation: fadeIn 1.5s ease;
+            transition: all 0.5s ease;
         }
 
         @keyframes fadeIn {
@@ -70,16 +164,18 @@
         h1 {
             font-size: 2.8rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(to right, #ffd700, #ffed4e);
+            text-shadow: 2px 2px 4px var(--shadow-color);
+            background: linear-gradient(to right, var(--text-secondary), #ffed4e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            transition: all 0.5s ease;
         }
 
         .subtitle {
             font-size: 1.5rem;
-            color: #ffd700;
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
+            transition: all 0.5s ease;
         }
 
         .diploma-container {
@@ -92,12 +188,13 @@
         .diploma-text {
             flex: 1;
             min-width: 300px;
-            background: rgba(0, 0, 0, 0.4);
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 15px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px var(--shadow-color);
             animation: slideInLeft 1s ease;
+            transition: all 0.5s ease;
         }
 
         @keyframes slideInLeft {
@@ -122,7 +219,7 @@
         .diploma-image img {
             max-width: 100%;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px var(--shadow-color);
             transition: transform 0.5s ease;
         }
 
@@ -144,8 +241,12 @@
             text-align: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px var(--shadow-color);
             animation: fadeInUp 1s ease;
+        }
+
+        [data-theme="light"] .link-card {
+            background: rgba(255, 255, 255, 0.6);
         }
 
         @keyframes fadeInUp {
@@ -156,11 +257,15 @@
         .link-card:hover {
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        [data-theme="light"] .link-card:hover {
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .link-card a {
-            color: #ffd700;
+            color: var(--link-color);
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 500;
@@ -169,12 +274,13 @@
         }
 
         .link-card a:hover {
-            color: #ffffff;
+            color: var(--text-primary);
         }
 
         .diploma-content {
             line-height: 1.8;
             font-size: 1.1rem;
+            transition: all 0.5s ease;
         }
 
         .diploma-content p {
@@ -190,6 +296,12 @@
             padding: 0.5rem;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 5px;
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="light"] .serial-number {
+            background: rgba(0, 0, 0, 0.1);
+            color: #d32f2f;
         }
 
         .signatures {
@@ -211,6 +323,11 @@
             height: 1px;
             background: rgba(255, 255, 255, 0.5);
             margin: 0.5rem auto;
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="light"] .signature-line {
+            background: rgba(0, 0, 0, 0.3);
         }
 
         footer {
@@ -220,6 +337,12 @@
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="light"] footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+            color: rgba(0, 0, 0, 0.7);
         }
 
         /* Адаптивность */
@@ -239,10 +362,24 @@
             .links-container {
                 grid-template-columns: 1fr;
             }
+
+            .theme-switcher {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
+    <!-- Переключатель темы -->
+    <div class="theme-switcher">
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+            <span class="slider-text">Тёмная тема</span>
+        </label>
+    </div>
+
     <!-- Анимированные элементы фона -->
     <div id="bubbles-container"></div>
 
@@ -292,7 +429,7 @@
             </div>
             
             <div class="diploma-image">
-                <img src="diplom.jpg" alt="Диплом" width="1000" height="1000">
+                <img src="diplom.jpg" alt="Диплом" width="500" height="500">
             </div>
         </div>
 
@@ -330,11 +467,43 @@
         </div>
 
         <footer>
-            <p>Дипломный проект Жуйкова Дмитрия &copy; 2026</p>
+            <p>Дипломный проект Жуйкова Дмитрия &copy; 2024</p>
         </footer>
     </div>
 
     <script>
+        // Переключение темы
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const sliderText = document.querySelector('.slider-text');
+
+        // Проверяем сохраненную тему в localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+            themeToggle.checked = savedTheme === 'light';
+            updateSliderText();
+        }
+
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateSliderText();
+        });
+
+        function updateSliderText() {
+            if (body.getAttribute('data-theme') === 'light') {
+                sliderText.textContent = 'Светлая тема';
+            } else {
+                sliderText.textContent = 'Тёмная тема';
+            }
+        }
+
         // Создание анимированных пузырьков на фоне
         function createBubbles() {
             const bubblesContainer = document.getElementById('bubbles-container');
@@ -385,5 +554,3 @@
     </script>
 </body>
 </html>
-
-
