@@ -3,6 +3,130 @@
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" sizes="512x512" href="my.png">
 <style>
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Скрываем стандартный курсор */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background-color 5s ease;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Кастомный курсор */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease, background-color 2s ease;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.5s ease, border-color 2s ease, width 2s ease, height 2s ease;
+        }
+
+        /* Контент */
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            z-index: 10;
+            transition: transform 0.5s ease;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: color 3s ease;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            transition: color 3s ease;
+        }
+
+        .info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Анимированные элементы фона */
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+            transition: background-color 5s ease;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        /* Эффект при наведении на контейнер */
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        .container:hover ~ .cursor {
+            transform: scale(1.5);
+        }
+
+        .container:hover ~ .cursor-follower {
+            transform: scale(1.2);
+        }
+
+        /* Анимация пульсации для привлечения внимания */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 3s infinite ease-in-out;
+        }
 a {font-size: 24 px}
 </style>
 <body>
@@ -50,6 +174,7 @@ a {font-size: 24 px}
 </p>
 </body>
 </html>
+
 
 
 
