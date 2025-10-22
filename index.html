@@ -56,7 +56,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Переключатель темы */
         .theme-switcher {
             position: fixed;
             top: 20px;
@@ -121,7 +120,6 @@
             white-space: nowrap;
         }
 
-        /* Анимированные элементы фона */
         .bg-bubble {
             position: absolute;
             border-radius: 50%;
@@ -430,7 +428,7 @@
             color: rgba(0, 0, 0, 0.7);
         }
 
-        /* Адаптивность */
+      
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -460,7 +458,7 @@
     </style>
 </head>
 <body data-theme="dark">
-    <!-- Переключатель темы -->
+ 
     <div class="theme-switcher">
         <label class="switch">
             <input type="checkbox" id="theme-toggle">
@@ -469,7 +467,7 @@
         </label>
     </div>
 
-    <!-- Анимированные элементы фона -->
+  
     <div id="bubbles-container"></div>
 
     <div class="container">
@@ -522,7 +520,7 @@
             </div>
         </div>
 
-        <!-- Новый раздел для Roblox Studio -->
+ 
         <div class="roblox-section">
             <h2>Roblox Studio</h2>
             <div class="roblox-container">
@@ -545,7 +543,7 @@
                 </div>
                 
                 <div class="roblox-image">
-                    <!-- Замените src на путь к вашему изображению Roblox Studio -->
+
                     <img src="Robloxstudio.png" width="600" height="400">
                 </div>
             </div>
@@ -590,12 +588,12 @@
     </div>
 
     <script>
-        // Переключение темы
+     
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
         const sliderText = document.querySelector('.slider-text');
 
-        // Проверяем сохраненную тему в localStorage
+      
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             body.setAttribute('data-theme', savedTheme);
@@ -622,7 +620,7 @@
             }
         }
 
-        // Создание анимированных пузырьков на фоне
+    
         function createBubbles() {
             const bubblesContainer = document.getElementById('bubbles-container');
             const bubbleCount = 15;
@@ -631,7 +629,7 @@
                 const bubble = document.createElement('div');
                 bubble.classList.add('bg-bubble');
                 
-                // Случайный размер и позиция
+         
                 const size = Math.random() * 100 + 50;
                 const left = Math.random() * 100;
                 const animationDuration = Math.random() * 30 + 20;
@@ -648,10 +646,10 @@
             }
         }
         
-        // Запуск при загрузке страницы
+    
         window.addEventListener('DOMContentLoaded', createBubbles);
         
-        // Добавление случайной анимации для элементов при прокрутке
+      
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -665,11 +663,12 @@
             });
         }, observerOptions);
         
-        // Наблюдаем за всеми карточками с ссылками
+
         document.querySelectorAll('.link-card').forEach(card => {
             observer.observe(card);
         });
     </script>
 </body>
 </html>
+
 
