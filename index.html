@@ -186,6 +186,33 @@
             transition: all 0.5s ease;
         }
 
+        /* Стили для главной ссылки */
+        .main-link {
+            display: inline-block;
+            margin: 1.5rem 0;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--text-secondary), #ffed4e);
+            color: #333;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .main-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
         .diploma-container {
             display: flex;
             flex-wrap: wrap;
@@ -454,6 +481,11 @@
                 top: 10px;
                 right: 10px;
             }
+            
+            .main-link {
+                font-size: 1rem;
+                padding: 0.7rem 1.5rem;
+            }
         }
     </style>
 </head>
@@ -474,6 +506,8 @@
         <header>
             <h1>Дипломный проект за 3 курс</h1>
             <div class="subtitle">Жуйкова Дмитрия</div>
+            <!-- Главная ссылка добавлена здесь -->
+            <a href="https://dima404-afk.github.io/Training-website/" class="main-link" target="_blank">Обучающий сайт</a>
         </header>
 
         <div class="diploma-container">
@@ -697,7 +731,3 @@
     </script>
 </body>
 </html>
-
-
-
-
