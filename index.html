@@ -179,6 +179,20 @@
             transition: all 0.5s ease;
         }
 
+        h3 {
+            font-size: 1.8rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-secondary);
+            transition: all 0.5s ease;
+        }
+
+        h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            transition: all 0.5s ease;
+        }
+
         .subtitle {
             font-size: 1.5rem;
             color: var(--text-secondary);
@@ -251,19 +265,52 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        .diploma-image img {
-            max-width: 100%;
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 10px 30px var(--shadow-color);
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
         }
 
-        .diploma-image img:hover {
-            transform: scale(1.03);
+        .image-wrapper:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px var(--shadow-color);
         }
 
-        /* Новый раздел для Roblox Studio */
-        .b-r-section {
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.5s ease;
+            filter: brightness(0.95);
+        }
+
+        .image-wrapper:hover img {
+            filter: brightness(1.1) saturate(1.2);
+        }
+
+        /* Эффект при наведении на картинку */
+        .image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(255, 69, 0, 0.3));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .image-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        /* Стили для всех разделов с технологиями */
+        .tech-section {
             margin-bottom: 3rem;
             padding: 2rem;
             background: var(--card-bg);
@@ -274,19 +321,19 @@
             transition: all 0.5s ease;
         }
 
-        .b-r-container {
+        .tech-container {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
             align-items: center;
         }
 
-        .b-r-info {
-            flex: 1;
+        .tech-info {
+            flex: 2;
             min-width: 300px;
         }
 
-        .b-r-image {
+        .tech-image {
             flex: 1;
             min-width: 300px;
             display: flex;
@@ -294,36 +341,25 @@
             align-items: center;
         }
 
-        .b-r-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            transition: transform 0.5s ease;
-        }
-
-        .b-r-image img:hover {
-            transform: scale(1.03);
-        }
-
-        .b-r-description {
+        .tech-description {
             line-height: 1.8;
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
             transition: all 0.5s ease;
         }
 
-        .b-r-features {
+        .tech-features {
             list-style-type: none;
             margin: 1.5rem 0;
         }
 
-        .b-r-features li {
+        .tech-features li {
             margin-bottom: 0.8rem;
             padding-left: 1.5rem;
             position: relative;
         }
 
-        .b-r-features li:before {
+        .tech-features li:before {
             content: "•";
             color: var(--text-secondary);
             font-size: 1.5rem;
@@ -332,9 +368,121 @@
             top: -5px;
         }
 
-        .b-r-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px var(--shadow-color);
+        /* Плюсы и минусы */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pros, .cons {
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+        }
+
+        .pros {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .cons {
+            background: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #F44336;
+        }
+
+        .pros h4, .cons h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .pros-list, .cons-list {
+            list-style-type: none;
+        }
+
+        .pros-list li, .cons-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .pros-list li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .cons-list li:before {
+            content: "✗";
+            color: #F44336;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Новый раздел для HTML */
+        .html-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            animation: fadeIn 1.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        .html-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .html-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .html-examples {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="light"] .html-examples {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .html-code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="light"] .html-code {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .code-tag {
+            color: #ff6b6b;
+        }
+
+        .code-attr {
+            color: #4ec9b0;
+        }
+
+        .code-value {
+            color: #ce9178;
         }
 
         .links-container {
@@ -455,7 +603,6 @@
             color: rgba(0, 0, 0, 0.7);
         }
 
-      
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -465,11 +612,19 @@
                 font-size: 1.8rem;
             }
             
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            h4 {
+                font-size: 1.2rem;
+            }
+            
             .subtitle {
                 font-size: 1.2rem;
             }
             
-            .diploma-container, .roblox-container {
+            .diploma-container, .tech-container, .html-container {
                 flex-direction: column;
             }
             
@@ -486,11 +641,14 @@
                 font-size: 1rem;
                 padding: 0.7rem 1.5rem;
             }
+            
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body data-theme="dark">
- 
     <div class="theme-switcher">
         <label class="switch">
             <input type="checkbox" id="theme-toggle">
@@ -499,14 +657,12 @@
         </label>
     </div>
 
-  
     <div id="bubbles-container"></div>
 
     <div class="container">
         <header>
             <h1>Дипломный проект за 3 курс</h1>
             <div class="subtitle">Жуйкова Дмитрия</div>
-            <!-- Главная ссылка добавлена здесь -->
             <a href="https://dima404-afk.github.io/Training-website/" class="main-link" target="_blank">Обучающий сайт</a>
         </header>
 
@@ -550,66 +706,208 @@
             </div>
             
             <div class="diploma-image">
-                <img src="diplom.jpg" alt="Диплом" width="500" height="500">
+                <div class="image-wrapper">
+                    <img src="diplom.jpg" alt="Диплом">
+                </div>
             </div>
         </div>
 
- 
-        <div class="b-r-section">
-            <h2>Roblox Studio</h2>
-            <div class="b-r-container">
-                <div class="b-r-info">
-                    <p class="b-r-description">
-                     Roblox Studio, демонстрирующая навыки программирования на языке Lua, создания 3D-моделей и проектирования игровой механики.
+        <!-- Новый раздел для HTML -->
+        <div class="html-section">
+            <h2>HTML - Основы веб-разработки</h2>
+            <div class="html-container">
+                <div class="html-info">
+                    <p class="tech-description">
+                        HTML (HyperText Markup Language) — это стандартный язык разметки для создания веб-страниц. Он определяет структуру и содержание веб-страницы, используя систему тегов и атрибутов. HTML является основой всех веб-сайтов и работает в сочетании с CSS для стилизации и JavaScript для интерактивности.
                     </p>
                     
-                    <h3>Основные особенности :</h3>
-                    <ul class="b-r-features">
+                    <h3>Что такое HTML?</h3>
+                    <p>HTML использует теги для определения элементов страницы: заголовков, абзацев, ссылок, изображений, таблиц и других компонентов. Каждый HTML-элемент может иметь атрибуты, которые предоставляют дополнительную информацию об элементе.</p>
+                    
+                    <div class="html-code">
+                        <pre><code>&lt;<span class="code-tag">!DOCTYPE html</span>&gt;
+&lt;<span class="code-tag">html</span>&gt;
+&lt;<span class="code-tag">head</span>&gt;
+    &lt;<span class="code-tag">title</span>&gt;Моя страница&lt;/<span class="code-tag">title</span>&gt;
+&lt;/<span class="code-tag">head</span>&gt;
+&lt;<span class="code-tag">body</span>&gt;
+    &lt;<span class="code-tag">h1</span>&gt;Привет, мир!&lt;/<span class="code-tag">h1</span>&gt;
+    &lt;<span class="code-tag">p</span>&gt;Это мой первый сайт.&lt;/<span class="code-tag">p</span>&gt;
+&lt;/<span class="code-tag">body</span>&gt;
+&lt;/<span class="code-tag">html</span>&gt;</code></pre>
+                    </div>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Преимущества HTML</h4>
+                            <ul class="pros-list">
+                                <li>Простота изучения</li>
+                                <li>Поддержка всеми браузерами</li>
+                                <li>Бесплатность и открытый стандарт</li>
+                                <li>Интеграция с другими технологиями</li>
+                                <li>Большое сообщество разработчиков</li>
+                                <li>Кроссплатформенность</li>
+                                <li>SEO-дружественность</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Недостатки HTML</h4>
+                            <ul class="cons-list">
+                                <li>Ограниченная функциональность без CSS/JS</li>
+                                <li>Статичность (без дополнительных технологий)</li>
+                                <li>Сложность поддержки больших проектов</li>
+                                <li>Уязвимость к XSS-атакам</li>
+                                <li>Различия в отображении в разных браузерах</li>
+                                <li>Необходимость валидации кода</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="html-examples">
+                    <h3>Примеры сайтов на HTML</h3>
+                    <ul class="tech-features">
+                        <li>Статические сайты-визитки</li>
+                        <li>Блоги и портфолио</li>
+                        <li>Лендинг-страницы</li>
+                        <li>Документация и справки</li>
+                        <li>Онлайн-резюме</li>
+                        <li>Промо-сайты продуктов</li>
+                        <li>Электронные учебники</li>
+                        <li>Корпоративные сайты</li>
+                    </ul>
+                    
+                    <h3>Ключевые особенности HTML5</h3>
+                    <ul class="tech-features">
+                        <li>Семантические теги</li>
+                        <li>Аудио и видео поддержка</li>
+                        <li>Canvas для графики</li>
+                        <li>Локальное хранилище</li>
+                        <li>Геолокация</li>
+                        <li>Веб-воркеры</li>
+                        <li>Drag and Drop API</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Раздел для Roblox Studio -->
+        <div class="tech-section">
+            <h2>Roblox Studio</h2>
+            <div class="tech-container">
+                <div class="tech-info">
+                    <p class="tech-description">
+                        Roblox Studio — мощная среда разработки для создания игр на платформе Roblox. Проект демонстрирует навыки программирования на языке Lua, создания 3D-моделей и проектирования игровой механики.
+                    </p>
+                    
+                    <h3>Основные возможности:</h3>
+                    <ul class="tech-features">
                         <li>Интерактивная карта с уникальным дизайном</li>
                         <li>Система квестов и достижений</li>
                         <li>Кастомизация персонажа</li>
                         <li>Мультиплеерный режим</li>
                         <li>Динамическая система освещения</li>
                         <li>Оптимизированная производительность</li>
+                        <li>Физика и коллизии</li>
+                        <li>Система монетизации</li>
                     </ul>
-                    
-                    
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Преимущества Roblox Studio</h4>
+                            <ul class="pros-list">
+                                <li>Бесплатная платформа для разработки</li>
+                                <li>Простое изучение языка Lua</li>
+                                <li>Большая аудитория игроков (более 200 млн)</li>
+                                <li>Возможность монетизации игр</li>
+                                <li>Кроссплатформенность</li>
+                                <li>Огромная библиотека готовых ассетов</li>
+                                <li>Активное сообщество разработчиков</li>
+                                <li>Регулярные обновления и улучшения</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Недостатки Roblox Studio</h4>
+                            <ul class="cons-list">
+                                <li>Ограничения движка для сложных проектов</li>
+                                <li>Комиссия платформы (30% от доходов)</li>
+                                <li>Целевая аудитория - в основном дети</li>
+                                <li>Ограниченная графика по сравнению с AAA-играми</li>
+                                <li>Зависимость от платформы Roblox</li>
+                                <li>Сложности с продвижением игр</li>
+                                <li>Ограниченный контроль над публикацией</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="b-r-image">
-
-                    <img src="Robloxstudio.png" width="600" height="400">
+                <div class="tech-image">
+                    <div class="image-wrapper">
+                        <img src="Robloxstudio.png" alt="Roblox Studio Проект">
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="b-r-section">
-            <h2>blender</h2>
-            <div class="b-r-container">
-                <div class="b-r-info">
-                    <p class="b-r-description">
-                    Blender — это профессиональная программа с открытым исходным кодом для создания трёхмерной графики, анимации, визуальных эффектов, рендеринга, композитинга и монтажа видео. По сути, это мощный инструмент, который позволяет создавать всё — от простых 3D-моделей до полнометражных фильмов и видеоигр.
+        <!-- Раздел для Blender -->
+        <div class="tech-section">
+            <h2>Blender</h2>
+            <div class="tech-container">
+                <div class="tech-info">
+                    <p class="tech-description">
+                        Blender — профессиональная программа с открытым исходным кодом для создания трёхмерной графики, анимации, визуальных эффектов, рендеринга, композитинга и монтажа видео. Это мощный инструмент, который позволяет создавать всё — от простых 3D-моделей до полнометражных фильмов и видеоигр.
                     </p>
                     
-                    <h3>Основные особенности :</h3>
-                    <ul class="b-r-features">
-                        <li>Постоянное развитие</li>
-                        <li>Активное и большое сообщество</li>
-                        <li>Мощные рендер-движки</li>
-                        <li>Полностью бесплатный и с открытым исходным кодом</li>
-                        <li>Все в одном пакете (All-in-One)</li>
+                    <h3>Основные возможности:</h3>
+                    <ul class="tech-features">
+                        <li>3D-моделирование и скульптинг</li>
+                        <li>Анимация персонажей и объектов</li>
+                        <li>Рендеринг (Cycles, Eevee)</li>
+                        <li>Визуальные эффекты и симуляции</li>
+                        <li>Композитинг и постобработка</li>
+                        <li>Видеомонтаж и звуковой редактор</li>
+                        <li>Создание игровых ассетов</li>
+                        <li>Поддержка Python для автоматизации</li>
                     </ul>
-                    
-                    
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Преимущества Blender</h4>
+                            <ul class="pros-list">
+                                <li>Полностью бесплатный и с открытым исходным кодом</li>
+                                <li>Все в одном пакете (All-in-One)</li>
+                                <li>Активное и большое сообщество</li>
+                                <li>Регулярные обновления каждые 3 месяца</li>
+                                <li>Профессиональные возможности для коммерческих проектов</li>
+                                <li>Кроссплатформенность (Windows, macOS, Linux)</li>
+                                <li>Обширные обучающие материалы</li>
+                                <li>Поддержка множества форматов файлов</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Недостатки Blender</h4>
+                            <ul class="cons-list">
+                                <li>Сложная кривая обучения для новичков</li>
+                                <li>Нетрадиционный интерфейс и горячие клавиши</li>
+                                <li>Менее стабилен, чем коммерческие аналоги</li>
+                                <li>Ограниченная официальная поддержка</li>
+                                <li>Меньше интеграции с другими профессиональными инструментами</li>
+                                <li>Требует мощного железа для сложных сцен</li>
+                                <li>Не все плагины и аддоны бесплатны</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="b-r-image">
-
-                    <img src="untitled.png" width="600" height="400">
+                <div class="tech-image">
+                    <div class="image-wrapper">
+                        <img src="untitled.png" alt="Blender Работа">
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Ссылки -->
         <div class="links-container">
             <div class="link-card">
                 <a href="https://yandex.ru/video/preview/7427399948227668614">Видео "тест"</a>
@@ -618,16 +916,16 @@
                 <a href="https://www.figma.com/design/9imTGdAD8BwFlVVQc7z5sZ/Untitled?node-id=0-1&t=rKtaoBJfkvVvuegS-1">Сайт на Figma</a>
             </div>
             <div class="link-card">
-                <a href="https://www.figma.com/design/2zjcAjITptB7iwzK2Jio2S/Untitled?node-id=1-42&t=bK5m6W9iSL6XyF9w-1">2 тест на сайте на Figma </a>
+                <a href="https://www.figma.com/design/2zjcAjITptB7iwzK2Jio2S/Untitled?node-id=1-42&t=bK5m6W9iSL6XyF9w-1">2 тест на сайте на Figma</a>
             </div>
             <div class="link-card">
-                <a href="https://onlinetestpad.com/yajm7lfgfsj4s">Тест на html курс 2 </a>
+                <a href="https://onlinetestpad.com/yajm7lfgfsj4s">Тест на html курс 2</a>
             </div>
             <div class="link-card">
                 <a href="https://zhuikov8.wordpress.com/%d1%86%d0%b8%d1%82%d0%b0%d1%82%d0%b0/">WordPress</a>
             </div>
             <div class="link-card">
-                <a href="https://stackblitzstarters2ymdg4tv-rom4--8080--4d9fd228.local-corp.webcontainer.io/index.html">Обучение по: HTML и CSS </a>
+                <a href="https://stackblitzstarters2ymdg4tv-rom4--8080--4d9fd228.local-corp.webcontainer.io/index.html">Обучение по: HTML и CSS</a>
             </div>
             <div class="link-card">
                 <a href="text.html">Шрифты12</a>
@@ -641,7 +939,7 @@
             <div class="link-card">
                 <a href="index(4).html">Еще одна табличка</a>
             </div>
-                        <div class="link-card">
+            <div class="link-card">
                 <a href="https://www.figma.com/proto/2zjcAjITptB7iwzK2Jio2S/Untitled?node-id=1-42&t=Joq9hq8WSSi6p1cx-1">диаграмма на фигме</a>
             </div>
         </div>
@@ -652,12 +950,10 @@
     </div>
 
     <script>
-     
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
         const sliderText = document.querySelector('.slider-text');
 
-      
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             body.setAttribute('data-theme', savedTheme);
@@ -684,7 +980,6 @@
             }
         }
 
-    
         function createBubbles() {
             const bubblesContainer = document.getElementById('bubbles-container');
             const bubbleCount = 15;
@@ -693,7 +988,6 @@
                 const bubble = document.createElement('div');
                 bubble.classList.add('bg-bubble');
                 
-         
                 const size = Math.random() * 100 + 50;
                 const left = Math.random() * 100;
                 const animationDuration = Math.random() * 30 + 20;
@@ -710,10 +1004,8 @@
             }
         }
         
-    
         window.addEventListener('DOMContentLoaded', createBubbles);
         
-      
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -727,11 +1019,9 @@
             });
         }, observerOptions);
         
-
         document.querySelectorAll('.link-card').forEach(card => {
             observer.observe(card);
         });
     </script>
 </body>
 </html>
-
