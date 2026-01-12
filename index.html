@@ -3,575 +3,601 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Дипломный проект Жуйкова Дмитрия - демонстрация навыков веб-разработки">
-    <title>Дипломный проект Жуйкова Дмитрия</title>
+    <meta name="description" content="Портфолио веб-разработчика - Дмитрий Жуйков">
+    <title>Портфолио | Дмитрий Жуйков</title>
     <link rel="icon" type="image/png" sizes="512x512" href="my.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styles -->
     <style>
+        /* CSS Reset и базовые настройки */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         :root {
-            --bg-primary: #1a2a6c;
-            --bg-secondary: #b21f1f;
-            --bg-tertiary: #fdbb2d;
-            --text-primary: white;
-            --text-secondary: #ffd700;
-            --card-bg: rgba(0, 0, 0, 0.4);
-            --header-bg: rgba(0, 0, 0, 0.3);
-            --link-color: #ffd700;
-            --bubble-opacity: 0.1;
-            --shadow-color: rgba(0, 0, 0, 0.2);
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #64ffda;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+            --card-bg: rgba(17, 34, 64, 0.85);
+            --header-bg: rgba(10, 25, 47, 0.95);
+            --terminal-green: #00ff88;
+            --terminal-blue: #00a8ff;
+            --terminal-yellow: #ffdd59;
+            --terminal-red: #ff4757;
+            --glass-effect: blur(15px);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --figma-purple: #9d6bff;
+            --figma-green: #1abc9c;
+            --figma-orange: #ff7e5f;
+            --jsitor-blue: #4a6bff;
+            --jsitor-green: #00c896;
+            --jsitor-yellow: #ffd166;
         }
 
         [data-theme="light"] {
-            --bg-primary: #a8c0ff;
-            --bg-secondary: #3f2b96;
-            --bg-tertiary: #ffd700;
-            --text-primary: #333333;
-            --text-secondary: #3f2b96;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --header-bg: rgba(255, 255, 255, 0.75);
-            --link-color: #3f2b96;
-            --bubble-opacity: 0.05;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            --primary-color: #f8f9fa;
+            --secondary-color: #e9ecef;
+            --accent-color: #0077ff;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --terminal-green: #28a745;
+            --terminal-blue: #007bff;
+            --terminal-yellow: #ffc107;
+            --terminal-red: #dc3545;
+            --glass-effect: blur(10px);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --figma-purple: #7c3aed;
+            --figma-green: #10b981;
+            --figma-orange: #f97316;
+            --jsitor-blue: #3b82f6;
+            --jsitor-green: #10b981;
+            --jsitor-yellow: #f59e0b;
+        }
+
+        body, html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(-45deg, var(--bg-primary), var(--bg-secondary), var(--bg-tertiary));
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: var(--primary-color);
             color: var(--text-primary);
+            font-family: 'Segoe UI', 'JetBrains Mono', 'Cascadia Code', monospace;
+            touch-action: none;
             overflow-x: hidden;
             position: relative;
             transition: all 0.5s ease;
             line-height: 1.6;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        #app {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            z-index: 1;
         }
 
-        /* Улучшенный переключатель темы */
+        /* Canvas Background */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+            filter: blur(1px);
+            transition: opacity 1s ease;
+            will-change: transform;
+        }
+
+        body.loaded #canvas {
+            opacity: 0.8;
+        }
+
+        /* Theme Switcher */
         .theme-switcher {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 1000;
+            z-index: 1003;
             display: flex;
             align-items: center;
             gap: 10px;
+            background: var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            backdrop-filter: var(--glass-effect);
         }
 
-        .switch {
+        .theme-label {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .terminal-switch {
             position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
+            width: 50px;
+            height: 24px;
         }
 
-        .switch input {
+        .terminal-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
 
-        .slider {
+        .terminal-slider {
             position: absolute;
             cursor: pointer;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: #112240;
+            border: 1px solid var(--accent-color);
             transition: .4s;
-            border-radius: 34px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
         }
 
-        .slider:before {
+        .terminal-slider:before {
             position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
+            content: "██";
+            height: 16px;
+            width: 20px;
             left: 4px;
-            bottom: 4px;
-            background-color: white;
+            bottom: 3px;
+            background-color: transparent;
             transition: .4s;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            color: var(--accent-color);
+            font-size: 12px;
+            line-height: 1;
         }
 
-        input:checked + .slider {
-            background-color: rgba(255, 255, 255, 0.5);
+        input:checked + .terminal-slider {
+            background-color: var(--accent-color);
         }
 
-        input:checked + .slider:before {
-            transform: translateX(26px);
-            background-color: #333;
+        input:checked + .terminal-slider:before {
+            content: "██";
+            transform: translateX(22px);
+            color: var(--primary-color);
         }
 
-        .slider-text {
+        /* Quality Indicator */
+        .quality-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1002;
+            background: rgba(100, 255, 218, 0.15);
+            color: var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            backdrop-filter: var(--glass-effect);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .quality-badge::before {
+            content: "⚡";
+            font-size: 14px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Canvas Control Buttons */
+        .canvas-controls {
+            position: fixed;
+            width: 100%;
+            bottom: 20px;
+            z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 0 20px;
+            pointer-events: auto;
+        }
+
+        .canvas-btn, .canvas-link {
             color: var(--text-primary);
+            font-family: "Montserrat", sans-serif;
             font-size: 14px;
             font-weight: 500;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: var(--glass-effect);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            min-width: 160px;
+            letter-spacing: 0.3px;
         }
 
-        /* Анимация пузырей */
-        .bg-bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, var(--bubble-opacity));
-            animation: float 25s infinite linear;
-            z-index: -1;
-            transition: background 0.5s ease;
+        .canvas-btn:hover, .canvas-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-color);
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(720deg); }
-        }
-
-        /* Основной контейнер */
-        .container {
+        /* Основной контейнер контента */
+        .content-container {
+            position: relative;
+            z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
-            position: relative;
-            z-index: 1;
+            backdrop-filter: blur(2px);
         }
 
-        /* Шапка */
-        header {
+        /* Хедер */
+        .terminal-header {
             text-align: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
             margin-bottom: 3rem;
             background: var(--header-bg);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px var(--shadow-color);
-            animation: fadeIn 1s ease;
-            transition: all 0.5s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--glass-effect);
+            box-shadow: 0 20px 40px var(--shadow-color);
+            animation: terminalType 1.5s ease;
+            border: 1px solid rgba(100, 255, 218, 0.25);
+            position: relative;
+            overflow: hidden;
         }
 
-        [data-theme="light"] header {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+        .terminal-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--terminal-green), 
+                var(--terminal-blue), 
+                var(--accent-color),
+                var(--terminal-yellow)
+            );
+            background-size: 200% 100%;
+            animation: gradientFlow 3s linear infinite;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes gradientFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        /* Типография */
+        @keyframes terminalType {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        /* Терминальная типография */
         h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px var(--shadow-color);
-            background: linear-gradient(135deg, var(--text-secondary), #ffed4e);
+            color: var(--accent-color);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            background: linear-gradient(135deg, var(--accent-color), var(--terminal-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            transition: all 0.5s ease;
+            background-clip: text;
         }
 
         h2 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--text-secondary), #ffed4e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: all 0.5s ease;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            color: var(--accent-color);
+            font-family: 'Courier New', monospace;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid rgba(100, 255, 218, 0.3);
+            position: relative;
+        }
+
+        h2::before {
+            content: "> ";
+            color: var(--terminal-green);
         }
 
         h3 {
             font-size: 1.6rem;
-            margin: 1.5rem 0 1rem;
-            color: var(--text-secondary);
-            transition: all 0.5s ease;
+            margin: 2rem 0 1rem;
+            color: var(--terminal-blue);
+            font-family: 'Courier New', monospace;
         }
 
         .subtitle {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            transition: all 0.5s ease;
+            margin-bottom: 2rem;
+            font-family: 'Courier New', monospace;
         }
 
-        /* Главная ссылка */
-        .main-link {
-            display: inline-block;
-            margin: 1.5rem 0;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(45deg, var(--text-secondary), #ffed4e);
-            color: #333;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .main-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px var(--shadow-color);
-        }
-
-        /* Диплом */
-        .diploma-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
+        /* Секции */
+        .terminal-section {
             margin-bottom: 4rem;
-        }
-
-        .diploma-text {
-            flex: 1;
-            min-width: 300px;
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px var(--shadow-color);
-            animation: slideInLeft 1s ease;
-            transition: all 0.5s ease;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .diploma-image {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: slideInRight 1s ease;
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Изображения */
-        .image-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            transition: all 0.5s ease;
-        }
-
-        .image-wrapper:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 40px var(--shadow-color);
-        }
-
-        .image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: all 0.5s ease;
-            filter: brightness(0.95);
-        }
-
-        .image-wrapper:hover img {
-            filter: brightness(1.05);
-        }
-
-        /* Общие стили для секций */
-        .section {
-            margin-bottom: 3rem;
             padding: 2.5rem;
             background: var(--card-bg);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px var(--shadow-color);
-            animation: fadeIn 1s ease;
-            transition: all 0.5s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: var(--glass-effect);
+            box-shadow: 0 15px 35px var(--shadow-color);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            animation: slideIn 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            will-change: transform, opacity;
         }
 
-        [data-theme="light"] .section {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+        .terminal-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
         }
 
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        /* Контент внутри секций */
         .section-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 1.5rem;
         }
 
-        .section-info {
-            flex: 2;
-            min-width: 300px;
+        @media (max-width: 1024px) {
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
 
-        .section-sidebar {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        /* Описание технологий */
-        .tech-description {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.5s ease;
-        }
-
-        /* Списки */
-        .features-list {
-            list-style-type: none;
-            margin: 1.5rem 0;
-        }
-
-        .features-list li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.8rem;
+        /* Специальный стиль для Figma */
+        .figma-highlight {
+            background: linear-gradient(135deg, 
+                rgba(157, 107, 255, 0.1), 
+                rgba(26, 188, 156, 0.1)
+            );
+            border-color: rgba(157, 107, 255, 0.3);
             position: relative;
         }
 
-        .features-list li:before {
-            content: "▸";
-            color: var(--text-secondary);
+        .figma-highlight::after {
+            content: "🎨";
             position: absolute;
-            left: 0;
-            font-weight: bold;
+            top: -15px;
+            right: -15px;
+            background: var(--figma-purple);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(157, 107, 255, 0.3);
+        }
+
+        /* Специальный стиль для JSitor */
+        .jsitor-highlight {
+            background: linear-gradient(135deg, 
+                rgba(74, 107, 255, 0.1), 
+                rgba(0, 200, 150, 0.1)
+            );
+            border-color: rgba(74, 107, 255, 0.3);
+            position: relative;
+        }
+
+        .jsitor-highlight::after {
+            content: "💻";
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--jsitor-blue);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.3);
         }
 
         /* Плюсы и минусы */
-        .pros-cons {
+        .pros-cons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .pros-box {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 136, 0.15), 
+                rgba(0, 255, 136, 0.05)
+            );
+            border-left: 4px solid var(--terminal-green);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .cons-box {
+            background: linear-gradient(135deg, 
+                rgba(255, 71, 87, 0.15), 
+                rgba(255, 71, 87, 0.05)
+            );
+            border-left: 4px solid var(--terminal-red);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .pros-box h4, .cons-box h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .pros-box h4::before {
+            content: "✅ ";
+            color: var(--terminal-green);
+        }
+
+        .cons-box h4::before {
+            content: "⚠️ ";
+            color: var(--terminal-red);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li::before {
+            position: absolute;
+            left: 0;
+        }
+
+        .pros-box .feature-list li::before {
+            content: "✓";
+            color: var(--terminal-green);
+        }
+
+        .cons-box .feature-list li::before {
+            content: "✗";
+            color: var(--terminal-red);
+        }
+
+        /* Карточки платформ */
+        .platforms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin: 2.5rem 0;
         }
 
-        .pros, .cons {
-            padding: 1.5rem;
-            border-radius: 12px;
-            transition: all 0.5s ease;
-        }
-
-        .pros {
-            background: rgba(76, 175, 80, 0.15);
-            border-left: 4px solid #4CAF50;
-        }
-
-        .cons {
-            background: rgba(244, 67, 54, 0.15);
-            border-left: 4px solid #F44336;
-        }
-
-        .pros h4, .cons h4 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            color: var(--text-primary);
-        }
-
-        .pros-list, .cons-list {
-            list-style-type: none;
-        }
-
-        .pros-list li, .cons-list li {
-            margin-bottom: 0.7rem;
-            padding-left: 1.8rem;
+        .platform-card {
+            background: rgba(100, 255, 218, 0.08);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
         }
 
-        .pros-list li:before {
-            content: "✓";
-            color: #4CAF50;
-            font-weight: bold;
+        .platform-card::before {
+            content: "";
             position: absolute;
-            left: 0;
-        }
-
-        .cons-list li:before {
-            content: "✗";
-            color: #F44336;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        /* HTML код */
-        .code-block {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1.5rem;
-            border-radius: 10px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            margin: 1.5rem 0;
-            overflow-x: auto;
-            transition: all 0.5s ease;
-            font-size: 0.95rem;
-        }
-
-        [data-theme="light"] .code-block {
-            background: rgba(0, 0, 0, 0.08);
-        }
-
-        .code-tag { color: #ff6b6b; }
-        .code-attr { color: #4ec9b0; }
-        .code-value { color: #ce9178; }
-        .code-comment { color: #6a9955; }
-
-        /* Ссылки */
-        .links-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .link-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px var(--shadow-color);
-            animation: fadeInUp 0.5s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="light"] .link-card {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .link-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 25px var(--shadow-color);
-        }
-
-        [data-theme="light"] .link-card:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .link-card a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            display: block;
-            transition: color 0.3s ease;
-            word-break: break-word;
-        }
-
-        .link-card a:hover {
-            color: var(--text-secondary);
-        }
-
-        /* Содержимое диплома */
-        .diploma-content {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            transition: all 0.5s ease;
-        }
-
-        .diploma-content p {
-            margin-bottom: 1rem;
-        }
-
-        .serial-number {
-            font-family: 'Courier New', monospace;
-            font-size: 1.3rem;
-            color: #ff6b6b;
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            transition: all 0.5s ease;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        [data-theme="light"] .serial-number {
-            background: rgba(0, 0, 0, 0.1);
-            color: #d32f2f;
-        }
-
-        .signatures {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .signature {
-            text-align: center;
-            flex: 1;
-            min-width: 180px;
-        }
-
-        .signature-line {
-            width: 150px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.5);
-            margin: 1rem auto;
-            transition: all 0.5s ease;
-        }
-
-        [data-theme="light"] .signature-line {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        /* Футер */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            transition: all 0.5s ease;
-        }
-
-        [data-theme="light"] footer {
-            border-top: 1px solid rgba(0, 0, 0, 0.2);
-            color: rgba(0, 0, 0, 0.7);
-        }
-
-        /* Прогресс-бар */
-        .progress-bar {
-            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--text-secondary), #ffed4e);
-            transform-origin: 0%;
-            z-index: 1001;
-            opacity: 0.8;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                var(--terminal-green), 
+                var(--terminal-blue)
+            );
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(100, 255, 218, 0.15);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .platform-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* JSitor Specific Styles */
+        .jsitor-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .jsitor-feature {
+            background: rgba(74, 107, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 107, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .jsitor-feature:hover {
+            transform: translateY(-3px);
+            background: rgba(74, 107, 255, 0.15);
+            border-color: var(--jsitor-blue);
+        }
+
+        .jsitor-feature-title {
+            color: var(--jsitor-blue);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* Адаптивность */
@@ -579,464 +605,702 @@
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
             h3 { font-size: 1.4rem; }
-            .subtitle { font-size: 1.2rem; }
             
-            .container {
+            .content-container {
                 padding: 1rem;
             }
             
-            .section {
+            .terminal-section {
                 padding: 1.5rem;
             }
             
-            .diploma-container,
-            .section-content {
-                flex-direction: column;
+            .terminal-header {
+                padding: 3rem 1.5rem;
             }
             
-            .links-container {
-                grid-template-columns: 1fr;
+            .canvas-controls {
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 15px;
+            }
+            
+            .canvas-btn, .canvas-link {
+                min-width: 140px;
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            
+            .quality-badge {
+                top: 10px;
+                left: 10px;
+                font-size: 11px;
+                padding: 6px 12px;
             }
             
             .theme-switcher {
                 top: 10px;
                 right: 10px;
+                padding: 6px 12px;
             }
             
-            .main-link {
-                font-size: 1rem;
-                padding: 0.8rem 2rem;
-            }
-            
-            .pros-cons {
+            .pros-cons-grid,
+            .platforms-grid,
+            .jsitor-features {
                 grid-template-columns: 1fr;
-            }
-            
-            .signatures {
-                flex-direction: column;
-                align-items: center;
+                gap: 1.5rem;
             }
         }
 
         @media (max-width: 480px) {
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.5rem; }
-            .section {
+            
+            .terminal-section {
                 padding: 1rem;
             }
+            
+            .canvas-btn, .canvas-link {
+                min-width: 120px;
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            
+            .quality-badge,
+            .theme-switcher {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+        }
+
+        /* Loading State */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(100, 255, 218, 0.3);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Performance Optimization */
+        .will-change-transform {
+            will-change: transform;
+        }
+
+        .will-change-opacity {
+            will-change: opacity;
         }
     </style>
 </head>
 <body data-theme="dark">
-    <div class="progress-bar"></div>
-    
-    <div class="theme-switcher">
-        <span class="slider-text">Тёмная тема</span>
-        <label class="switch">
-            <input type="checkbox" id="theme-toggle" aria-label="Переключить тему">
-            <span class="slider"></span>
-        </label>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" style="color: var(--accent-color); font-family: 'Courier New', monospace;">
+            ЗАГРУЗКА DIPLOMA BACKGROUND...
+        </div>
     </div>
 
-    <div id="bubbles-container"></div>
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <span class="theme-label">ТЕМА:</span>
+        <label class="terminal-switch">
+            <input type="checkbox" id="theme-toggle" aria-label="Переключить тему">
+            <span class="terminal-slider"></span>
+        </label>
+        <span class="theme-label" id="theme-status">DARK</span>
+    </div>
 
-    <div class="container">
-        <header>
-            <h1>Дипломный проект за 3 курс</h1>
-            <div class="subtitle">Жуйкова Дмитрия</div>
-            <p class="tech-description" style="text-align: center; margin-top: 1rem;">
-                Демонстрация навыков веб-разработки, 3D-моделирования и создания игр
+    <!-- Quality Badge -->
+    <div class="quality-badge">
+        DIPLOMA BACKGROUND: ULTRA HD
+    </div>
+
+    <!-- Canvas Background -->
+    <div id="app">
+        <canvas id="canvas"></canvas>
+        <div class="canvas-controls">
+            <button type="button" id="colors-btn" class="canvas-btn">
+                Сменить цвета
+            </button>
+            <a href="https://www.framer.com/@kevin-levron/" target="_blank" class="canvas-link">
+                Framer Component
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <header class="terminal-header">
+            <h1>ДИПЛОМНЫЙ ПРОЕКТ</h1>
+            <div class="subtitle">Жуйков Дмитрий | Портфолио разработчика</div>
+            <p class="tech-description" style="text-align: center; margin-top: 1rem; font-size: 1.1rem;">
+                <span style="color: var(--accent-color); font-weight: bold;">>></span> 
+                Веб-разработка • 3D моделирование • Game Dev • UI/UX Design
             </p>
-            <a href="https://dima404-afk.github.io/Training-website/" class="main-link" target="_blank" rel="noopener">
-                Посмотреть обучающий сайт →
+            <a href="https://dima404-afk.github.io/Training-website/" class="canvas-link" target="_blank" rel="noopener" style="display: inline-block; margin-top: 1.5rem;">
+                Посмотреть основной проект →
             </a>
         </header>
 
         <!-- Диплом -->
-        <section class="section">
-            <h2>Диплом о высшем образовании</h2>
-            <div class="diploma-container">
-                <div class="diploma-text">
+        <section class="terminal-section">
+            <h2>ДИПЛОМ МАГИСТРА</h2>
+            <div class="section-content">
+                <div class="section-info">
                     <div class="diploma-content">
-                        <div class="serial-number">132454 053633</div>
-                        <p><strong>Диплом о высшем образовании</strong></p>
-                        <p>Подтверждает успешное окончание обучения по программе магистратуры</p>
-                        <p>Дата выдачи: 19.05.2015</p>
-                        <p>Настоящий диплом свидетельствует о том, что выпускник освоил программу магистратуры и успешно прошел государственную итоговую аттестацию</p>
+                        <div class="serial-number" style="
+                            font-family: 'Courier New', monospace;
+                            font-size: 1.3rem;
+                            color: var(--terminal-yellow);
+                            text-align: center;
+                            margin: 2rem 0;
+                            padding: 1.5rem;
+                            background: rgba(0, 0, 0, 0.3);
+                            border-radius: 12px;
+                            border: 1px solid rgba(255, 221, 89, 0.3);
+                            letter-spacing: 2px;
+                        ">
+                            SERIAL: 132454-053633
+                        </div>
                         
-                        <p><strong>Решение государственной экзаменационной комиссии</strong></p>
-                        <p>Присвоена квалификация: Магистр</p>
-                        <p>Протокол №1341535 от "05" 19.05.2015</p>
-                        
-                        <div class="signatures">
-                            <div class="signature">
-                                <p>Председатель</p>
-                                <div class="signature-line"></div>
-                                <p>################</p>
-                            </div>
-                            <div class="signature">
-                                <p>Государственной</p>
-                                <div class="signature-line"></div>
-                                <p>#############</p>
-                            </div>
-                            <div class="signature">
-                                <p>Экзаменационной комиссии</p>
-                                <div class="signature-line"></div>
-                                <p>#################</p>
-                            </div>
+                        <div style="line-height: 1.8;">
+                            <p><strong style="color: var(--accent-color);">[+] Диплом о высшем образовании</strong></p>
+                            <p>🎓 <strong>Квалификация:</strong> <span style="color: var(--terminal-green);">Магистр</span></p>
+                            <p>📅 <strong>Дата выдачи:</strong> 19.05.2015</p>
+                            <p>✅ <strong>Статус:</strong> <span style="color: var(--terminal-green);">Валиден</span></p>
+                            <p>📜 <strong>Протокол:</strong> #1341535</p>
+                            <p>🏛️ <strong>Учреждение:</strong> Аккредитованный ВУЗ</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="diploma-image">
-                    <div class="image-wrapper">
-                        <img src="diplom.jpg" alt="Диплом о высшем образовании" loading="lazy">
+                    <div class="image-wrapper" style="
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 15px;
+                        box-shadow: 0 15px 35px var(--shadow-color);
+                        border: 2px solid rgba(100, 255, 218, 0.3);
+                        transition: all 0.5s ease;
+                    ">
+                        <img src="diplom.jpg" alt="Диплом магистра" 
+                             loading="lazy" 
+                             onerror="this.style.display='none'"
+                             style="width: 100%; height: auto; display: block;">
+                        <div style="
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            background: linear-gradient(transparent, rgba(10, 25, 47, 0.9));
+                            padding: 1rem;
+                            text-align: center;
+                            color: var(--accent-color);
+                            font-family: 'Courier New', monospace;
+                            font-size: 0.9rem;
+                        ">
+                            Оригинал документа
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- HTML раздел -->
-        <section class="section">
-            <h2>HTML - Основы веб-разработки</h2>
+        <!-- HTML раздел с платформами -->
+        <section class="terminal-section">
+            <h2>ВЕБ-РАЗРАБОТКА & HTML</h2>
             <div class="section-content">
                 <div class="section-info">
-                    <p class="tech-description">
-                        HTML (HyperText Markup Language) — стандартный язык разметки для создания веб-страниц. Он определяет структуру и семантику содержимого веб-страницы, используя систему тегов и атрибутов.
+                    <p class="tech-description" style="font-size: 1.1rem; line-height: 1.8;">
+                        Современная веб-разработка с использованием HTML5, CSS3, JavaScript. 
+                        Создание адаптивных, производительных веб-приложений с фокусом на 
+                        пользовательский опыт и производительность.
                     </p>
                     
-                    <h3>Структура HTML-документа</h3>
-                    <p>HTML документ состоит из элементов, которые определяют различные части страницы: заголовки, абзацы, ссылки, изображения и другие компоненты.</p>
-                    
-                    <div class="code-block">
-                        <pre><code>&lt;<span class="code-tag">!DOCTYPE html</span>&gt;
-&lt;<span class="code-tag">html</span> <span class="code-attr">lang</span>=<span class="code-value">"ru"</span>&gt;
-&lt;<span class="code-tag">head</span>&gt;
-    &lt;<span class="code-tag">meta</span> <span class="code-attr">charset</span>=<span class="code-value">"UTF-8"</span>&gt;
-    &lt;<span class="code-tag">title</span>&gt;Заголовок страницы&lt;/<span class="code-tag">title</span>&gt;
-&lt;/<span class="code-tag">head</span>&gt;
-&lt;<span class="code-tag">body</span>&gt;
-    &lt;<span class="code-tag">header</span>&gt;
-        &lt;<span class="code-tag">h1</span>&gt;Основной заголовок&lt;/<span class="code-tag">h1</span>&gt;
-    &lt;/<span class="code-tag">header</span>&gt;
-    &lt;<span class="code-tag">main</span>&gt;
-        &lt;<span class="code-tag">p</span>&gt;Пример HTML-страницы.&lt;/<span class="code-tag">p</span>&gt;
-    &lt;/<span class="code-tag">main</span>&gt;
-&lt;/<span class="code-tag">body</span>&gt;
-&lt;/<span class="code-tag">html</span>&gt;</code></pre>
+                    <h3>ОНЛАЙН ПЛАТФОРМЫ ДЛЯ РАЗРАБОТКИ</h3>
+                    <div class="platforms-grid">
+                        <!-- GitHub -->
+                        <div class="platform-card">
+                            <div class="platform-name" style="color: var(--accent-color); margin-bottom: 1rem; font-family: 'Courier New', monospace; font-size: 1.2rem;">
+                                GitHub
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                                Ведущая платформа для хостинга кода и совместной разработки
+                            </p>
+                            <div style="margin-top: 1rem;">
+                                <a href="https://github.com" target="_blank" style="
+                                    display: inline-block;
+                                    padding: 0.5rem 1rem;
+                                    background: rgba(100, 255, 218, 0.1);
+                                    color: var(--accent-color);
+                                    text-decoration: none;
+                                    border-radius: 8px;
+                                    border: 1px solid rgba(100, 255, 218, 0.3);
+                                    font-family: 'Courier New', monospace;
+                                    font-size: 0.9rem;
+                                ">
+                                    git push origin main
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- StackBlitz -->
+                        <div class="platform-card">
+                            <div class="platform-name" style="color: var(--terminal-blue); margin-bottom: 1rem; font-family: 'Courier New', monospace; font-size: 1.2rem;">
+                                StackBlitz
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                                Браузерная IDE для полноценной веб-разработки
+                            </p>
+                            <div style="margin-top: 1rem;">
+                                <a href="https://stackblitz.com" target="_blank" style="
+                                    display: inline-block;
+                                    padding: 0.5rem 1rem;
+                                    background: rgba(0, 168, 255, 0.1);
+                                    color: var(--terminal-blue);
+                                    text-decoration: none;
+                                    border-radius: 8px;
+                                    border: 1px solid rgba(0, 168, 255, 0.3);
+                                    font-family: 'Courier New', monospace;
+                                    font-size: 0.9rem;
+                                ">
+                                    npm start
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- CodePen -->
+                        <div class="platform-card">
+                            <div class="platform-name" style="color: var(--terminal-green); margin-bottom: 1rem; font-family: 'Courier New', monospace; font-size: 1.2rem;">
+                                CodePen
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                                Интерактивная песочница для фронтенд-разработки
+                            </p>
+                            <div style="margin-top: 1rem;">
+                                <a href="https://codepen.io" target="_blank" style="
+                                    display: inline-block;
+                                    padding: 0.5rem 1rem;
+                                    background: rgba(0, 255, 136, 0.1);
+                                    color: var(--terminal-green);
+                                    text-decoration: none;
+                                    border-radius: 8px;
+                                    border: 1px solid rgba(0, 255, 136, 0.3);
+                                    font-family: 'Courier New', monospace;
+                                    font-size: 0.9rem;
+                                ">
+                                    Create New Pen
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- JSitor - ДОБАВЛЕНО В СЕКЦИЮ -->
+                        <div class="platform-card jsitor-highlight" style="
+                            background: linear-gradient(135deg, 
+                                rgba(74, 107, 255, 0.12), 
+                                rgba(0, 200, 150, 0.08)
+                            );
+                            border-color: rgba(74, 107, 255, 0.3);
+                        ">
+                            <div class="platform-name" style="color: var(--jsitor-blue); margin-bottom: 1rem; font-family: 'Courier New', monospace; font-size: 1.2rem;">
+                                JSitor
+                            </div>
+                            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                                Песочница для JavaScript с фокусом на быструю разработку
+                            </p>
+                            <div style="margin-top: 1rem;">
+                                <a href="https://jsitor.com" target="_blank" style="
+                                    display: inline-block;
+                                    padding: 0.5rem 1rem;
+                                    background: rgba(74, 107, 255, 0.1);
+                                    color: var(--jsitor-blue);
+                                    text-decoration: none;
+                                    border-radius: 8px;
+                                    border: 1px solid rgba(74, 107, 255, 0.3);
+                                    font-family: 'Courier New', monospace;
+                                    font-size: 0.9rem;
+                                ">
+                                    Create New Snippet
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="pros-cons">
-                        <div class="pros">
-                            <h4>Преимущества HTML</h4>
-                            <ul class="pros-list">
-                                <li>Простота изучения</li>
-                                <li>Поддержка всеми браузерами</li>
-                                <li>Бесплатный и открытый стандарт</li>
-                                <li>SEO-дружественный</li>
+                    <!-- Быстрый доступ к JSitor -->
+                    <div style="margin: 3rem 0; text-align: center;">
+                        <div style="
+                            background: rgba(74, 107, 255, 0.05);
+                            border: 1px solid rgba(74, 107, 255, 0.2);
+                            border-radius: 12px;
+                            padding: 1.5rem;
+                            margin-bottom: 1.5rem;
+                        ">
+                            <h4 style="color: var(--jsitor-blue); font-family: 'Courier New', monospace; margin-bottom: 1rem;">
+                                <span style="font-size: 1.2rem;">⚡</span> Быстрый доступ к JSitor:
+                            </h4>
+                            <a href="https://jsitor.com" 
+                               target="_blank" 
+                               class="canvas-link"
+                               style="display: inline-flex; align-items: center; gap: 10px; background: rgba(74, 107, 255, 0.15); border-color: var(--jsitor-blue);">
+                                <span style="font-size: 1.2rem;">🚀</span> Открыть JSitor сейчас
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JSitor Section -->
+        <section class="terminal-section jsitor-highlight">
+            <h2>💻 JSITOR - ПЕСОЧНИЦА ДЛЯ JAVASCRIPT</h2>
+            <div class="section-content">
+                <div class="section-info">
+                    <p class="tech-description" style="font-size: 1.1rem; line-height: 1.8;">
+                        JSitor — онлайн-редактор кода, специализирующийся на JavaScript. 
+                        Позволяет быстро создавать, тестировать и делиться JavaScript, HTML и CSS кодом.
+                    </p>
+
+                    <div class="pros-cons-grid">
+                        <div class="pros-box">
+                            <h4>ПРЕИМУЩЕСТВА JSITOR</h4>
+                            <ul class="feature-list">
+                                <li>Специализация на JavaScript</li>
+                                <li>Быстрая загрузка и отклик</li>
+                                <li>Экспорт кода в различные форматы</li>
+                                <li>Встроенная консоль для отладки</li>
+                                <li>Поддержка популярных библиотек</li>
+                                <li>Простой и чистый интерфейс</li>
+                                <li>Бесплатные приватные сниппеты</li>
+                            </ul>
+                        </div>
+
+                        <div class="cons-box">
+                            <h4>ОГРАНИЧЕНИЯ JSITOR</h4>
+                            <ul class="feature-list">
+                                <li>Меньше функций чем у конкурентов</li>
+                                <li>Ограниченная поддержка бэкенда</li>
+                                <li>Базовые возможности совместной работы</li>
+                                <li>Меньше интеграций с другими сервисами</li>
+                                <li>Отсутствие темной темы по умолчанию</li>
+                                <li>Ограниченные настройки редактора</li>
+                                <li>Нет встроенного деплоя</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>ОСОБЕННОСТИ JSITOR</h3>
+                    <div class="jsitor-features">
+                        <div class="jsitor-feature">
+                            <div class="jsitor-feature-title">
+                                <span>⚡</span> Быстрая загрузка
+                            </div>
+                            <p>Оптимизированный редактор загружается мгновенно</p>
+                        </div>
+                        
+                        <div class="jsitor-feature">
+                            <div class="jsitor-feature-title">
+                                <span>🔧</span> JavaScript фокус
+                            </div>
+                            <p>Специализированные инструменты для JS разработки</p>
+                        </div>
+                        
+                        <div class="jsitor-feature">
+                            <div class="jsitor-feature-title">
+                                <span>📁</span> Экспорт кода
+                            </div>
+                            <p>Поддержка экспорта в HTML, JS, CSS форматы</p>
+                        </div>
+                        
+                        <div class="jsitor-feature">
+                            <div class="jsitor-feature-title">
+                                <span>🐛</span> Консоль отладки
+                            </div>
+                            <p>Встроенная консоль для отладки JavaScript</p>
+                        </div>
+                    </div>
+
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <a href="https://jsitor.com" 
+                           target="_blank" 
+                           class="canvas-link"
+                           style="display: inline-flex; align-items: center; gap: 10px; background: rgba(74, 107, 255, 0.15); border-color: var(--jsitor-blue);">
+                            <span style="font-size: 1.2rem;">🚀</span> Открыть JSitor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Figma Section -->
+        <section class="terminal-section figma-highlight">
+            <h2>🎨 FIGMA - ПРОФЕССИОНАЛЬНЫЙ ДИЗАЙН</h2>
+            <div class="section-content">
+                <div class="section-info">
+                    <p class="tech-description" style="font-size: 1.1rem; line-height: 1.8;">
+                        Figma — облачный инструмент для проектирования интерфейсов и совместной работы. 
+                        Используется для создания прототипов, дизайн-систем и взаимодействия с разработчиками.
+                    </p>
+
+                    <div class="pros-cons-grid">
+                        <div class="pros-box">
+                            <h4>ПРЕИМУЩЕСТВА FIGMA</h4>
+                            <ul class="feature-list">
+                                <li>Облачная платформа — работа из любого места</li>
+                                <li>Реальная совместная работа в режиме реального времени</li>
+                                <li>Автоматическая версионность и история изменений</li>
+                                <li>Бесплатный план с полноценными возможностями</li>
+                                <li>Экспорт CSS, SVG, React кода</li>
+                                <li>Мощные плагины и интеграции</li>
                                 <li>Кроссплатформенность</li>
                             </ul>
                         </div>
-                        <div class="cons">
-                            <h4>Ограничения</h4>
-                            <ul class="cons-list">
-                                <li>Требует CSS для стилизации</li>
-                                <li>Статичность без JavaScript</li>
-                                <li>Ограниченная интерактивность</li>
-                                <li>Необходимость валидации</li>
+
+                        <div class="cons-box">
+                            <h4>ОГРАНИЧЕНИЯ FIGMA</h4>
+                            <ul class="feature-list">
+                                <li>Зависимость от интернет-соединения</li>
+                                <li>Ограниченная производительность с очень большими файлами</li>
+                                <li>Нет полноценной офлайн-работы</li>
+                                <li>Ограниченные возможности для полиграфии</li>
+                                <li>Конкуренция со стороны Adobe XD и Sketch</li>
+                                <li>Платные функции для команд</li>
+                                <li>Ограниченная кастомизация интерфейса</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-                
-                <div class="section-sidebar">
-                    <h3>HTML5 Особенности</h3>
-                    <ul class="features-list">
-                        <li>Семантические теги</li>
-                        <li>Аудио/Видео элементы</li>
-                        <li>Canvas для графики</li>
-                        <li>Локальное хранилище</li>
-                        <li>Геолокация</li>
-                        <li>Веб-компоненты</li>
-                    </ul>
-                    
-                    <h3>Применение</h3>
-                    <ul class="features-list">
-                        <li>Веб-сайты</li>
-                        <li>Веб-приложения</li>
-                        <li>Электронная почта</li>
-                        <li>Документация</li>
-                        <li>Электронные книги</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
-        <!-- Roblox Studio -->
-        <section class="section">
-            <h2>Roblox Studio - Разработка игр</h2>
-            <div class="section-content">
-                <div class="section-info">
-                    <p class="tech-description">
-                        Roblox Studio — интегрированная среда разработки для создания игр на платформе Roblox с использованием языка программирования Lua. Позволяет создавать интерактивные 3D-миры с многопользовательской поддержкой.
-                    </p>
-                    
-                    <h3>Реализованные функции</h3>
-                    <ul class="features-list">
-                        <li>Интерактивная игровая механика</li>
-                        <li>Система квестов и достижений</li>
-                        <li>Кастомизация персонажей</li>
-                        <li>Многопользовательский режим</li>
-                        <li>Физика и коллизии</li>
-                        <li>Динамическое освещение</li>
-                        <li>Система монетизации</li>
-                    </ul>
-
-                    <div class="pros-cons">
-                        <div class="pros">
-                            <h4>Преимущества</h4>
-                            <ul class="pros-list">
-                                <li>Бесплатная платформа</li>
-                                <li>Простой язык Lua</li>
-                                <li>Большая аудитория</li>
-                                <li>Кроссплатформенность</li>
-                                <li>Готовые ассеты</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>Недостатки</h4>
-                            <ul class="cons-list">
-                                <li>Ограничения движка</li>
-                                <li>Комиссия 30%</li>
-                                <li>Детская аудитория</li>
-                                <li>Зависимость от платформы</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-sidebar">
-                    <div class="image-wrapper">
-                        <img src="Robloxstudio2.png" alt="Roblox Studio проект" loading="lazy">
+                    <h3>FIGMA КОМПОНЕНТЫ</h3>
+                    <div style="margin: 2rem 0;">
+                        <a href="https://www.figma.com/design/9imTGdAD8BwFlVVQc7z5sZ/Untitled" 
+                           target="_blank" 
+                           class="canvas-link"
+                           style="display: inline-flex; align-items: center; gap: 10px; margin-right: 1rem; background: rgba(157, 107, 255, 0.15); border-color: var(--figma-purple);">
+                            <span style="font-size: 1.2rem;">🎯</span> Дизайн веб-сайта
+                        </a>
+                        
+                        <a href="https://www.figma.com/design/2zjcAjITptB7iwzK2Jio2S/Untitled" 
+                           target="_blank" 
+                           class="canvas-link"
+                           style="display: inline-flex; align-items: center; gap: 10px; background: rgba(26, 188, 156, 0.15); border-color: var(--figma-green);">
+                            <span style="font-size: 1.2rem;">📱</span> UI/UX Прототип
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Blender -->
-        <section class="section">
-            <h2>Blender - 3D Моделирование</h2>
-            <div class="section-content">
-                <div class="section-info">
-                    <p class="tech-description">
-                        Blender — профессиональное программное обеспечение с открытым исходным кодом для создания трёхмерной графики, анимации, визуальных эффектов, рендеринга и монтажа видео.
-                    </p>
-                    
-                    <h3>Возможности Blender</h3>
-                    <ul class="features-list">
-                        <li>3D-моделирование и скульптинг</li>
-                        <li>Анимация персонажей</li>
-                        <li>Рендеринг (Cycles, Eevee)</li>
-                        <li>Визуальные эффекты</li>
-                        <li>Видеомонтаж</li>
-                        <li>Создание игровых ассетов</li>
-                        <li>Скриптование на Python</li>
-                    </ul>
-
-                    <div class="pros-cons">
-                        <div class="pros">
-                            <h4>Преимущества</h4>
-                            <ul class="pros-list">
-                                <li>Полностью бесплатный</li>
-                                <li>Все в одном пакете</li>
-                                <li>Активное сообщество</li>
-                                <li>Регулярные обновления</li>
-                                <li>Кроссплатформенность</li>
-                            </ul>
-                        </div>
-                        <div class="cons">
-                            <h4>Недостатки</h4>
-                            <ul class="cons-list">
-                                <li>Сложное обучение</li>
-                                <li>Своеобразный интерфейс</li>
-                                <li>Требует мощного железа</li>
-                                <li>Меньше интеграций</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-sidebar">
-                    <div class="image-wrapper">
-                        <img src="untitled.png" alt="3D модель в Blender" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Дополнительные работы -->
-        <section class="section">
-            <h2>Дополнительные работы и проекты</h2>
-            <div class="links-container">
-                <div class="link-card">
-                    <a href="https://yandex.ru/video/preview/7427399948227668614" target="_blank" rel="noopener">
-                        Видео демонстрация
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://www.figma.com/design/9imTGdAD8BwFlVVQc7z5sZ/Untitled" target="_blank" rel="noopener">
-                        Дизайн сайта в Figma
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://www.figma.com/design/2zjcAjITptB7iwzK2Jio2S/Untitled" target="_blank" rel="noopener">
-                        Макет интерфейса
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://onlinetestpad.com/yajm7lfgfsj4s" target="_blank" rel="noopener">
-                        Тест по HTML
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://zhuikov8.wordpress.com/%d1%86%d0%b8%d1%82%d0%b0%d1%82%d0%b0/" target="_blank" rel="noopener">
-                        Блог на WordPress
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="https://stackblitzstarters2ymdg4tv-rom4--8080--4d9fd228.local-corp.webcontainer.io/index.html" target="_blank" rel="noopener">
-                        Учебный проект HTML/CSS
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="text.html" target="_blank" rel="noopener">
-                        Работа со шрифтами
-                    </a>
-                </div>
-                <div class="link-card">
-                    <a href="index (2).html" target="_blank" rel="noopener">
-                        HTML таблицы
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <p>© 2024 Дипломный проект Жуйкова Дмитрия</p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
-                Демонстрация навыков веб-разработки и компьютерной графики
+        <!-- Footer -->
+        <footer class="terminal-footer" style="
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(100, 255, 218, 0.2);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+        ">
+            <p>© 2024 | Жуйков Дмитрий | Портфолио разработчика</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--accent-color);">
+                >> terminal session: active | last update: 2024-01-15 14:30:00
             </p>
         </footer>
     </div>
 
-    <script>
-        // Управление темой
+    <!-- JavaScript -->
+    <script type="module">
+        // Инициализация темы
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
-        const sliderText = document.querySelector('.slider-text');
+        const themeStatus = document.getElementById('theme-status');
 
-        // Загрузка темы из localStorage
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        body.setAttribute('data-theme', savedTheme);
-        themeToggle.checked = savedTheme === 'light';
-        updateThemeText();
-
-        // Переключение темы
-        themeToggle.addEventListener('change', function() {
-            const theme = this.checked ? 'light' : 'dark';
+        // Загрузка темы
+        const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const savedTheme = localStorage.getItem('theme') || getSystemTheme();
+        
+        const applyTheme = (theme) => {
             body.setAttribute('data-theme', theme);
+            themeToggle.checked = theme === 'light';
+            themeStatus.textContent = theme === 'light' ? 'LIGHT' : 'DARK';
             localStorage.setItem('theme', theme);
-            updateThemeText();
+            
+            document.querySelector('meta[name="theme-color"]')?.remove();
+            const meta = document.createElement('meta');
+            meta.name = 'theme-color';
+            meta.content = theme === 'dark' ? '#0a192f' : '#f8f9fa';
+            document.head.appendChild(meta);
+        };
+
+        // Инициализация темы
+        applyTheme(savedTheme);
+
+        // Обработчик переключения темы
+        themeToggle.addEventListener('change', function() {
+            applyTheme(this.checked ? 'light' : 'dark');
         });
 
-        function updateThemeText() {
-            sliderText.textContent = body.getAttribute('data-theme') === 'light' 
-                ? 'Светлая тема' 
-                : 'Тёмная тема';
-        }
-
-        // Создание пузырей
-        function createBubbles() {
-            const container = document.getElementById('bubbles-container');
-            const bubbleCount = 12;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'bg-bubble';
-                
-                const size = Math.random() * 80 + 40;
-                const position = Math.random() * 100;
-                const duration = Math.random() * 20 + 25;
-                const delay = Math.random() * 10;
-                
-                Object.assign(bubble.style, {
-                    width: `${size}px`,
-                    height: `${size}px`,
-                    left: `${position}%`,
-                    top: '100vh',
-                    animationDuration: `${duration}s`,
-                    animationDelay: `${delay}s`
-                });
-                
-                container.appendChild(bubble);
+        // Слушатель системных изменений темы
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
             }
-        }
+        });
 
-        // Прогресс-бар при скролле
-        function updateProgressBar() {
-            const progressBar = document.querySelector('.progress-bar');
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
+        // Инициализация анимации
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const canvas = document.getElementById('canvas');
             
-            progressBar.style.transform = `scaleX(${scrollPercent / 100})`;
-        }
-
-        // Анимация при скролле
-        function handleScrollAnimations() {
-            const sections = document.querySelectorAll('.section');
-            
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+            try {
+                // Динамический импорт Three.js компонента
+                const module = await import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.26/build/cursors/attraction1.min.js');
                 
-                if (isVisible) {
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
+                // Инициализация фона с FIX для пропадания кубиков
+                const app = module.default(canvas, {
+                    particles: {
+                        attractionIntensity: 1.2,
+                        size: 2.5,
+                        count: 150, // Уменьшено для стабильности
+                        speed: 0.7,
+                        color1: 0x64ffda,
+                        color2: 0x00a8ff,
+                        backgroundColor: 0x0a192f,
+                        opacity: 0.8, // Явно задана прозрачность
+                        visible: true // Гарантия видимости
+                    },
+                    quality: 'medium', // Уменьшено качество для стабильности
+                    antialias: true,
+                    transparent: true,
+                    alpha: true,
+                    preserveDrawingBuffer: true, // Важно: сохранять буфер рисования
+                    autoStart: true, // Автоматический старт
+                    fpsLimit: 60 // Ограничение FPS
+                });
+
+                // FIX: Гарантия что частицы всегда видны
+                if (app.particles) {
+                    app.particles.visible = true;
+                    app.particles.material.transparent = true;
+                    app.particles.material.opacity = 0.8;
+                    app.particles.material.depthTest = false;
+                    app.particles.material.depthWrite = false;
+                    
+                    // Force render on load
+                    setTimeout(() => {
+                        if (app.renderer && app.renderer.render) {
+                            app.renderer.render(app.scene, app.camera);
+                        }
+                    }, 100);
                 }
-            });
-        }
 
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', () => {
-            createBubbles();
-            updateProgressBar();
-            handleScrollAnimations();
-            
-            // Установка начальных стилей для анимации
-            document.querySelectorAll('.section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            });
+                // Слушатель смены цветов
+                const colorsBtn = document.getElementById('colors-btn');
+                colorsBtn.addEventListener('click', () => {
+                    // Плавная смена цветов
+                    if (app.particles && app.particles.light1 && app.particles.light2) {
+                        app.particles.light1.color.setHex(Math.random() * 0xffffff);
+                        app.particles.light2.color.setHex(Math.random() * 0xffffff);
+                    }
+                    
+                    // Анимация кнопки
+                    colorsBtn.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        colorsBtn.style.transform = 'scale(1)';
+                    }, 150);
+                });
+
+                // FIX: Ресайз с сохранением частиц
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        if (app && app.resize) {
+                            app.resize();
+                            // Force re-render после ресайза
+                            setTimeout(() => {
+                                if (app.renderer && app.renderer.render) {
+                                    app.renderer.render(app.scene, app.camera);
+                                }
+                            }, 100);
+                        }
+                    }, 250);
+                });
+
+                // FIX: Гарантия видимости при табах
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && app.renderer && app.renderer.render) {
+                        setTimeout(() => {
+                            app.renderer.render(app.scene, app.camera);
+                        }, 100);
+                    }
+                });
+
+                // Анимация загрузки
+                setTimeout(() => {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        document.body.classList.add('loaded');
+                        
+                        // Force render после загрузки
+                        if (app.renderer && app.renderer.render) {
+                            app.renderer.render(app.scene, app.camera);
+                        }
+                    }, 500);
+                }, 1500);
+
+                // FIX: Периодический рендеринг для гарантии видимости
+                setInterval(() => {
+                    if (app.renderer && app.renderer.render && document.visibilityState === 'visible') {
+                        app.renderer.render(app.scene, app.camera);
+                    }
+                }, 5000); // Каждые 5 секунд
+
+            } catch (error) {
+                console.error('Error loading background:', error);
+                loadingOverlay.innerHTML = `
+                    <div style="color: var(--terminal-red); text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                        <div>Фон не загружен</div>
+                        <div style="font-size: 0.8rem; margin-top: 1rem; color: var(--text-secondary);">
+                            Используется статичный фон
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                    document.body.classList.add('loaded');
+                }, 2000);
+            }
         });
 
-        // Обработчики событий
-        window.addEventListener('scroll', () => {
-            updateProgressBar();
-            handleScrollAnimations();
+        // Preload critical images
+        const images = ['diplom.jpg'];
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
         });
-
-        // Предзагрузка изображений
-        function preloadImages() {
-            const images = ['diplom.jpg', 'Robloxstudio2.png', 'untitled.png'];
-            images.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-        }
-
-        preloadImages();
     </script>
 </body>
 </html>
