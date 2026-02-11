@@ -267,7 +267,7 @@
             align-items: center;
         }
 
-        /* Изображения */
+        /* Изображения - ИСПРАВЛЕНИЕ */
         .image-wrapper {
             position: relative;
             overflow: hidden;
@@ -275,6 +275,12 @@
             box-shadow: 0 10px 30px var(--shadow-color);
             transition: all 0.5s ease;
             border: 1px solid rgba(100, 255, 218, 0.2);
+            width: 100%;
+            min-height: 300px;
+            background: linear-gradient(45deg, var(--secondary-color) 25%, rgba(100, 255, 218, 0.1) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .image-wrapper:hover {
@@ -283,10 +289,25 @@
         }
 
         .image-wrapper img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 400px;
             height: auto;
             display: block;
             transition: all 0.5s ease;
+            object-fit: contain;
+        }
+
+        /* Стиль для изображений, которые не загрузились */
+        .image-wrapper .image-fallback {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            width: 100%;
+        }
+
+        .image-wrapper .image-fallback div:first-child {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         /* Секции */
@@ -617,8 +638,8 @@
                 </div>
                 
                 <div class="diploma-image">
-                    <div class="image-wrapper">
-                        <img src="diplom.jpg" alt="Диплом магистра" loading="lazy" onerror="this.style.display='none'">
+                    <div class="image-wrapper" id="diploma-image">
+                        <img src="diplom.jpg" alt="Диплом магистра" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -634,6 +655,32 @@
                         производительных веб-приложений с использованием семантической разметки.
                     </p>
                     
+                    <!-- Плюсы и минусы HTML -->
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>HTML: ПРЕИМУЩЕСТВА</h4>
+                            <ul class="terminal-list">
+                                <li>Стандартизированный язык</li>
+                                <li>Поддержка всеми браузерами</li>
+                                <li>Простой для изучения</li>
+                                <li>Хорошая доступность</li>
+                                <li>SEO-дружественный</li>
+                                <li>Быстрая загрузка страниц</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>HTML: ОГРАНИЧЕНИЯ</h4>
+                            <ul class="terminal-list">
+                                <li>Ограниченная интерактивность</li>
+                                <li>Статичность без CSS/JS</li>
+                                <li>Может быть многословным</li>
+                                <li>Сложная валидация форм</li>
+                                <li>Нет встроенной безопасности</li>
+                                <li>Зависимость от браузера</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
                     <h3>СТРУКТУРА ПРОЕКТА</h3>
                     <div class="terminal-code">
                         <span class="code-comment">// index.html</span><br>
@@ -646,7 +693,7 @@
                         &lt;/<span class="code-tag">head</span>&gt;
                     </div>
 
-                    <h3>ОНЛАЙН ПЛАТФОРМЫ</h3>
+                    <h3>ОНЛАЙН ПЛАТФОРМЫ ДЛЯ HTML</h3>
                     <div class="platforms-grid">
                         <div class="platform-card">
                             <div class="platform-name">GitHub</div>
@@ -676,6 +723,8 @@
                                         <li>Браузерная IDE</li>
                                         <li>Мгновенный деплой</li>
                                         <li>Интеграция с npm</li>
+                                        <li>Поддержка Node.js</li>
+                                        <li>Актуальные версии</li>
                                     </ul>
                                 </div>
                             </div>
@@ -694,6 +743,8 @@
                                         <li>Быстрое прототипирование</li>
                                         <li>Сообщество дизайнеров</li>
                                         <li>Визуальный редактор</li>
+                                        <li>Препроцессоры CSS</li>
+                                        <li>Библиотеки JS</li>
                                     </ul>
                                 </div>
                             </div>
@@ -712,6 +763,8 @@
                                         <li>Фокус на JavaScript</li>
                                         <li>Быстрая загрузка</li>
                                         <li>Экспорт кода</li>
+                                        <li>Простой интерфейс</li>
+                                        <li>Встроенные примеры</li>
                                     </ul>
                                 </div>
                             </div>
@@ -755,6 +808,32 @@
                         Создание интерактивных миров с мультиплеером и монетизацией.
                     </p>
                     
+                    <!-- Плюсы и минусы Roblox Studio -->
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>ROBLOX STUDIO: ПРЕИМУЩЕСТВА</h4>
+                            <ul class="terminal-list">
+                                <li>Встроенная монетизация</li>
+                                <li>Готовые 3D-инструменты</li>
+                                <li>Встроенный мультиплеер</li>
+                                <li>Кроссплатформенность</li>
+                                <li>Готовая аудитория</li>
+                                <li>Интуитивный интерфейс</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>ROBLOX STUDIO: ОГРАНИЧЕНИЯ</h4>
+                            <ul class="terminal-list">
+                                <li>Ограниченный язык (Lua)</li>
+                                <li>Зависимость от платформы</li>
+                                <li>Низкая производительность</li>
+                                <li>Строгий контроль контента</li>
+                                <li>Ограниченная графика</li>
+                                <li>Большая комиссия платформы</li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <h3>РЕАЛИЗОВАННЫЕ ФУНКЦИИ</h3>
                     <div class="terminal-pros-cons">
                         <div class="terminal-pros">
@@ -795,8 +874,8 @@
                 </div>
                 
                 <div class="section-sidebar">
-                    <div class="image-wrapper" style="margin-bottom: 1rem;">
-                        <img src="Robloxstudio2.png" alt="Roblox Studio проект" loading="lazy" onerror="this.style.display='none'">
+                    <div class="image-wrapper" id="roblox-image" style="margin-bottom: 1rem;">
+                        <img src="Robloxstudio2.png" alt="Roblox Studio проект" loading="lazy">
                     </div>
                     
                     <h3>ПЛАТФОРМА ROBLOX</h3>
@@ -830,6 +909,32 @@
                         Создание ассетов для игр, визуализация архитектуры, motion design.
                     </p>
                     
+                    <!-- Плюсы и минусы Blender -->
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>BLENDER: ПРЕИМУЩЕСТВА</h4>
+                            <ul class="terminal-list">
+                                <li>Полностью бесплатный</li>
+                                <li>Открытый исходный код</li>
+                                <li>Всё-в-одном пакете</li>
+                                <li>Активное сообщество</li>
+                                <li>Постоянные обновления</li>
+                                <li>Мощные возможности</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>BLENDER: ОГРАНИЧЕНИЯ</h4>
+                            <ul class="terminal-list">
+                                <li>Сложная кривая обучения</li>
+                                <li>Нерегулярный интерфейс</li>
+                                <li>Меньше плагинов</li>
+                                <li>Ограниченная поддержка CAD</li>
+                                <li>Проблемы совместимости</li>
+                                <li>Высокие требования к GPU</li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <h3>WORKFLOW ПРОЦЕСС</h3>
                     <div class="terminal-pros-cons">
                         <div class="terminal-pros">
@@ -876,8 +981,8 @@
                 </div>
                 
                 <div class="section-sidebar">
-                    <div class="image-wrapper" style="margin-bottom: 1rem;">
-                        <img src="untitled.png" alt="3D модель в Blender" loading="lazy" onerror="this.style.display='none'">
+                    <div class="image-wrapper" id="blender-image" style="margin-bottom: 1rem;">
+                        <img src="untitled.png" alt="3D модель в Blender" loading="lazy">
                     </div>
                     
                     <h3>RENDER ENGINES</h3>
@@ -908,6 +1013,238 @@
             </div>
         </section>
 
+        <!-- Figma раздел с картинкой -->
+        <section class="terminal-section">
+            <h2>UI/UX ДИЗАЙН | FIGMA</h2>
+            <div class="section-content">
+                <div class="section-info">
+                    <p class="tech-description">
+                        Профессиональный дизайн интерфейсов, прототипирование и разработка дизайн-систем.
+                        Создание адаптивных макетов для веб и мобильных приложений.
+                    </p>
+                    
+                    <!-- Плюсы и минусы Figma -->
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>FIGMA: ПРЕИМУЩЕСТВА</h4>
+                            <ul class="terminal-list">
+                                <li>Бесплатный базовый план</li>
+                                <li>Облачная платформа</li>
+                                <li>Режим совместной работы</li>
+                                <li>Экспорт в код</li>
+                                <li>Кроссплатформенность</li>
+                                <li>Большая библиотека плагинов</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>FIGMA: ОГРАНИЧЕНИЯ</h4>
+                            <ul class="terminal-list">
+                                <li>Требует интернет-соединение</li>
+                                <li>Ограничения бесплатного плана</li>
+                                <li>Сложная анимация</li>
+                                <li>Нет офлайн-режима</li>
+                                <li>Проблемы с производительностью</li>
+                                <li>Зависимость от браузера</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>ОСНОВНЫЕ ВОЗМОЖНОСТИ</h3>
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>ДИЗАЙН</h4>
+                            <ul class="terminal-list">
+                                <li>Векторные инструменты</li>
+                                <li>Автолейаут</li>
+                                <li>Варианты компонентов</li>
+                                <li>Дизайн-токены</li>
+                                <li>Библиотеки стилей</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>ПРОТОТИПИРОВАНИЕ</h4>
+                            <ul class="terminal-list">
+                                <li>Интерактивные прототипы</li>
+                                <li>Микровзаимодействия</li>
+                                <li>Тестирование на устройствах</li>
+                                <li>Комментарии и фидбек</li>
+                                <li>Версионность</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>ИНТЕГРАЦИИ</h3>
+                    <div class="terminal-code">
+                        <span class="code-comment">// Пример экспорта из Figma в код</span><br>
+                        <span class="code-keyword">const</span> <span class="code-attr">designTokens</span> = {<br>
+                        &nbsp;&nbsp;<span class="code-attr">colors</span>: {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-attr">primary</span>: <span class="code-value">"#0077ff"</span>,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-attr">secondary</span>: <span class="code-value">"#64ffda"</span><br>
+                        &nbsp;&nbsp;},<br>
+                        &nbsp;&nbsp;<span class="code-attr">typography</span>: {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-attr">fontFamily</span>: <span class="code-value">"'Segoe UI', sans-serif"</span><br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                </div>
+                
+                <div class="section-sidebar">
+                    <div class="image-wrapper" id="figma-image" style="margin-bottom: 1rem;">
+                        <img src="figma.png" alt="Figma UI/UX дизайн" loading="lazy">
+                    </div>
+                    
+                    <h3>ИНСТРУМЕНТЫ</h3>
+                    <ul class="terminal-list">
+                        <li>Vector Networks</li>
+                        <li>Auto Layout</li>
+                        <li>Components & Variants</li>
+                        <li>Design Systems</li>
+                        <li>Plugins</li>
+                        <li>Dev Mode</li>
+                    </ul>
+                    
+                    <h3>ЭКСПОРТ</h3>
+                    <ul class="terminal-list">
+                        <li>CSS / SVG</li>
+                        <li>React / Vue код</li>
+                        <li>Android / iOS ресурсы</li>
+                        <li>PDF / PNG / JPG</li>
+                    </ul>
+                    
+                    <h3>КОЛЛАБОРАЦИЯ</h3>
+                    <ul class="terminal-list">
+                        <li>Комментарии в реальном времени</li>
+                        <li>Общие библиотеки</li>
+                        <li>Версионный контроль</li>
+                        <li>Презентации</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unity раздел с картинкой -->
+        <section class="terminal-section">
+            <h2>GAME DEVELOPMENT | UNITY</h2>
+            <div class="section-content">
+                <div class="section-info">
+                    <p class="tech-description">
+                        Разработка кроссплатформенных игр и интерактивных приложений.
+                        От 2D мобильных игр до AAA проектов с использованием C#.
+                    </p>
+                    
+                    <!-- Плюсы и минусы Unity -->
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>UNITY: ПРЕИМУЩЕСТВА</h4>
+                            <ul class="terminal-list">
+                                <li>Кроссплатформенность</li>
+                                <li>Огромное сообщество</li>
+                                <li>Asset Store с ресурсами</li>
+                                <li>Бесплатный для начинающих</li>
+                                <li>Визуальный редактор</li>
+                                <li>Регулярные обновления</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>UNITY: ОГРАНИЧЕНИЯ</h4>
+                            <ul class="terminal-list">
+                                <li>Сложность при масштабировании</li>
+                                <li>Проблемы с производительностью</li>
+                                <li>Изменение политик ценообразования</li>
+                                <li>Слабая 2D поддержка</li>
+                                <li>Раздутые билды</li>
+                                <li>Зависимость от монетизации</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>ТЕХНОЛОГИЧЕСКИЙ СТЕК</h3>
+                    <div class="terminal-pros-cons">
+                        <div class="terminal-pros">
+                            <h4>ГРАФИКА И РЕНДЕРИНГ</h4>
+                            <ul class="terminal-list">
+                                <li>Universal Render Pipeline</li>
+                                <li>High Definition RP</li>
+                                <li>Shader Graph</li>
+                                <li>Post Processing</li>
+                                <li>Lighting Systems</li>
+                            </ul>
+                        </div>
+                        <div class="terminal-cons">
+                            <h4>ИГРОВЫЕ СИСТЕМЫ</h4>
+                            <ul class="terminal-list">
+                                <li>Physics Engine</li>
+                                <li>Animation System</li>
+                                <li>AI Navigation</li>
+                                <li>Multiplayer Networking</li>
+                                <li>Audio System</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>ПРИМЕР КОДА C#</h3>
+                    <div class="terminal-code">
+                        <span class="code-comment">// Пример скрипта движения персонажа</span><br>
+                        <span class="code-keyword">using</span> UnityEngine;<br><br>
+                        
+                        <span class="code-keyword">public class</span> <span class="code-tag">PlayerController</span> : MonoBehaviour<br>
+                        {<br>
+                        &nbsp;&nbsp;<span class="code-keyword">public float</span> speed = 5f;<br>
+                        &nbsp;&nbsp;<span class="code-keyword">private</span> Rigidbody rb;<br><br>
+                        
+                        &nbsp;&nbsp;<span class="code-keyword">void</span> Start()<br>
+                        &nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;rb = GetComponent&lt;Rigidbody&gt;();<br>
+                        &nbsp;&nbsp;}<br><br>
+                        
+                        &nbsp;&nbsp;<span class="code-keyword">void</span> FixedUpdate()<br>
+                        &nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">float</span> moveHorizontal = Input.GetAxis(<span class="code-value">"Horizontal"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">float</span> moveVertical = Input.GetAxis(<span class="code-value">"Vertical"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Vector3 movement = <span class="code-keyword">new</span> Vector3(moveHorizontal, 0, moveVertical);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;rb.AddForce(movement * speed);<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                </div>
+                
+                <div class="section-sidebar">
+                    <div class="image-wrapper" id="unity-image" style="margin-bottom: 1rem;">
+                        <img src="unity.png" alt="Unity разработка игр" loading="lazy">
+                    </div>
+                    
+                    <h3>ПОДДЕРЖИВАЕМЫЕ ПЛАТФОРМЫ</h3>
+                    <ul class="terminal-list">
+                        <li>Windows, macOS, Linux</li>
+                        <li>iOS & Android</li>
+                        <li>PlayStation & Xbox</li>
+                        <li>Nintendo Switch</li>
+                        <li>WebGL</li>
+                        <li>AR/VR устройства</li>
+                    </ul>
+                    
+                    <h3>ИНСТРУМЕНТЫ</h3>
+                    <ul class="terminal-list">
+                        <li>Unity Editor</li>
+                        <li>Visual Scripting</li>
+                        <li>Terrain Tools</li>
+                        <li>ProBuilder</li>
+                        <li>Cinemachine</li>
+                        <li>Timeline</li>
+                    </ul>
+                    
+                    <h3>МОНОТИЗАЦИЯ</h3>
+                    <ul class="terminal-list">
+                        <li>Unity Ads</li>
+                        <li>In-App Purchases</li>
+                        <li>Analytics</li>
+                        <li>Cloud Services</li>
+                        <li>Multiplayer Services</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
         <!-- Погода -->
         <div id="8177a97a1564b906e42aac7982863add" class="ww-informers-box-854753"><p class="ww-informers-box-854754"><a href="https://world-weather.ru/pogoda/russia/ust_ilimsk/14days/">Подробнее на сайте</a><br><a href="https://world-weather.ru/pogoda/russia/krasnoyarsk/">Прогноз погоды в Красноярске на завтра</a></p></div><script async type="text/javascript" charset="utf-8" src="https://world-weather.ru/wwinformer.php?userid=8177a97a1564b906e42aac7982863add"></script><style>.ww-informers-box-854754{-webkit-animation-name:ww-informers54;animation-name:ww-informers54;-webkit-animation-duration:1.5s;animation-duration:1.5s;white-space:nowrap;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;font-size:12px;font-family:Arial;line-height:18px;text-align:center}@-webkit-keyframes ww-informers54{0%,80%{opacity:0}100%{opacity:1}}@keyframes ww-informers54{0%,80%{opacity:0}100%{opacity:1}}</style>
         
@@ -1031,6 +1368,46 @@
             }
         }
 
+        // Обработка изображений с fallback
+        function handleImages() {
+            const imageIds = ['diploma-image', 'roblox-image', 'blender-image', 'figma-image', 'unity-image'];
+            const fallbackImages = {
+                'diploma-image': '📄 Диплом',
+                'roblox-image': '🎮 Roblox Studio',
+                'blender-image': '🎨 Blender 3D',
+                'figma-image': '🎨 Figma Design',
+                'unity-image': '🎮 Unity Game Engine'
+            };
+
+            imageIds.forEach(id => {
+                const wrapper = document.getElementById(id);
+                if (wrapper) {
+                    const img = wrapper.querySelector('img');
+                    
+                    // Проверяем, загрузилось ли изображение
+                    if (img.complete && img.naturalHeight === 0) {
+                        // Изображение не загрузилось
+                        wrapper.innerHTML = `
+                            <div class="image-fallback">
+                                <div>${fallbackImages[id]}</div>
+                                <div style="font-size: 1rem; margin-top: 0.5rem;">Изображение не загружено</div>
+                            </div>
+                        `;
+                    }
+                    
+                    // Обработчик ошибок
+                    img.onerror = function() {
+                        wrapper.innerHTML = `
+                            <div class="image-fallback">
+                                <div>${fallbackImages[id]}</div>
+                                <div style="font-size: 1rem; margin-top: 0.5rem;">Изображение не загружено</div>
+                            </div>
+                        `;
+                    };
+                }
+            });
+        }
+
         // Анимации при скролле
         const observerOptions = {
             threshold: 0.1,
@@ -1054,7 +1431,13 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const img = entry.target;
-                        img.src = img.dataset.src || img.src;
+                        // Проверяем, не загружено ли уже изображение
+                        if (!img.src || img.src.includes('#')) {
+                            const dataSrc = img.getAttribute('data-src');
+                            if (dataSrc) {
+                                img.src = dataSrc;
+                            }
+                        }
                         imageObserver.unobserve(img);
                     }
                 });
@@ -1068,7 +1451,9 @@
             const resources = [
                 'diplom.jpg',
                 'Robloxstudio2.png',
-                'untitled.png'
+                'untitled.png',
+                'figma.png',
+                'unity.png'
             ];
             
             resources.forEach(src => {
@@ -1076,6 +1461,7 @@
                 link.rel = 'preload';
                 link.as = 'image';
                 link.href = src;
+                link.crossOrigin = 'anonymous';
                 document.head.appendChild(link);
             });
         }
@@ -1093,6 +1479,9 @@
             // Предзагрузка
             preloadCriticalResources();
             lazyLoadImages();
+            
+            // Обработка изображений
+            setTimeout(handleImages, 2000); // Даем время на загрузку
             
             // Запуск прогресс бара
             updateLoader();
@@ -1119,10 +1508,19 @@
             if (e.target.tagName === 'IMG') {
                 const parent = e.target.parentElement;
                 if (parent.classList.contains('image-wrapper')) {
+                    const id = parent.id;
+                    const fallbackMap = {
+                        'diploma-image': '📄 Диплом',
+                        'roblox-image': '🎮 Roblox Studio',
+                        'blender-image': '🎨 Blender 3D',
+                        'figma-image': '🎨 Figma Design',
+                        'unity-image': '🎮 Unity Game Engine'
+                    };
+                    
                     parent.innerHTML = `
-                        <div style="padding: 2rem; text-align: center; color: var(--text-secondary);">
-                            <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
-                            <div>Изображение не загружено</div>
+                        <div class="image-fallback">
+                            <div>${fallbackMap[id] || '📁'}</div>
+                            <div style="font-size: 1rem; margin-top: 0.5rem;">Изображение не загружено</div>
                         </div>
                     `;
                 }
@@ -1131,5 +1529,3 @@
     </script>
 </body>
 </html>
-
-
